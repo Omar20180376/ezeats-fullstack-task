@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# React Authenticated Post Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a simple React application that provides user authentication and authorization functionalities. Users can register, login, create, update, and delete posts. The application also utilizes Back4app for database management with live queries.
 
-## Available Scripts
+## Objective
 
-In the project directory, you can run:
+The objective of this project is to build a React app with the following functionalities:
 
-### `npm start`
+- Simple login page to store user information.
+- An app that utilizes live parse queries.
+- Ability to register new users with email, username, and password.
+- Authentication and authorization to access specific features like post management.
+- Create, update, and delete posts with user-specific permissions.
+- Display posts with creation date and creator information.
+- Implement responsive UI design.
+- Allow users to edit only their own posts.
+- Add filtering options to the post list.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **React.js:** Frontend JavaScript library for building user interfaces.
+- **Back4app:** Database management platform with live queries.
+- **Parse:** JavaScript SDK for interfacing with the Back4app database.
+- **React Router:** Library for routing in React applications.
+- **HTML5 and CSS3:** Markup and styling languages for web development.
 
-### `npm test`
+## Setup Instructions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Omar20180376/ezeats-fullstack-task
