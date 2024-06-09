@@ -26,6 +26,15 @@ The objective of this project is to build a React app with the following functio
 
 ## Setup Instructions
 
+### Prerequisites
+
+- Node.js (v14 or later)
+- npm or yarn
+- Back4app account
+
+### Steps
+
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/Omar20180376/ezeats-fullstack-task
+   cd ezeats-fullstack-task
