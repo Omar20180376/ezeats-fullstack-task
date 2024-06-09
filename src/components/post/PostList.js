@@ -56,6 +56,8 @@ const PostList = () => {
       setPosts(filteredPosts);
     } catch (error) {
       console.error('Error while fetching Posts: ', error);
+      // Handle network issues gracefully
+      alert('Error while fetching Posts. Please try again later.');
     }
   };
 
@@ -69,6 +71,8 @@ const PostList = () => {
       fetchPosts();
     } catch (error) {
       console.error('Error while deleting Post: ', error);
+      // Handle delete errors gracefully
+      alert('Error while deleting Post. Please try again later.');
     }
   };
 

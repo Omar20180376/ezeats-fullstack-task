@@ -6,7 +6,7 @@ body {
   
   .post-list-container {
     padding: 20px;
-    max-width: 800px;
+    max-width: 60rem;
     margin: 0 auto;
     background-color: #fff;
     border-radius: 8px;
@@ -156,7 +156,7 @@ body {
     }
   
     .logout-button, .create-post-button {
-      width: 100%;
+      width: 45%;
       margin-bottom: 10px;
       padding: 15px;
     }
@@ -181,39 +181,38 @@ body {
   
   @media (max-width: 480px) {
     .post-list-container {
-        padding: 20px;
-        max-width: 800px;
-        margin: 0 auto;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        position: relative; /* For positioning the logout button */
-      }
-    
-      .logout-button, .create-post-button {
-        width: 100%;
-        margin-bottom: 10px;
-        padding: 15px;
-      }
-    
-      .posts {
-        max-height: none; /* Allow full height on smaller screens */
-      }
-    
-      .post {
-        padding: 10px;
-      }
-    
-      .post .post-meta {
-        flex-direction: column;
-      }
-    
-      .post .post-meta .meta-item {
-        flex-basis: 100%;
-        text-align: left;
-      }
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative; /* For positioning the logout button */
+    }
+  
+    .logout-button, .create-post-button {
+      width: 45%;
+      margin-bottom: 10px;
+      padding: 15px;
+    }
+  
+    .posts {
+      max-height: none; /* Allow full height on smaller screens */
+    }
+  
+    .post {
+      padding: 10px;
+    }
+  
+    .post .post-meta {
+      flex-direction: column;
+    }
+  
+    .post .post-meta .meta-item {
+      flex-basis: 100%;
+      text-align: left;
+    }
   }
-
   
   .filter-options {
     display: flex;
@@ -233,7 +232,4 @@ body {
   .filter-options button.active {
     background-color: #45a049;
   }
-  
-
-
   
