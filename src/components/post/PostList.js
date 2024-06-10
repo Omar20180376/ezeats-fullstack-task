@@ -21,11 +21,47 @@ const PostList = () => {
   };
 
   useEffect(() => {
+    let subscription;
     if (user) {
       fetchPosts();
+
+      const Post = Parse.Object.extend('Post');
+      const query = new Parse.Query(Post);
+      query.include('userId');
+
+      query.subscribe().then(sub => {
+        subscription = sub;
+
+        subscription.on('create', post => {
+          setPosts(prevPosts => {
+            if (!prevPosts.some(p => p.id === post.id)) {
+              return [...prevPosts, post];
+            }
+            return prevPosts;
+          });
+        });
+
+        subscription.on('update', post => {
+          setPosts(prevPosts => prevPosts.map(prevPost => (prevPost.id === post.id ? post : prevPost)));
+        });
+
+        subscription.on('delete', post => {
+          setPosts(prevPosts => prevPosts.filter(prevPost => prevPost.id !== post.id));
+        });
+      }).catch(error => {
+        console.error('Error subscribing to live query:', error);
+      });
     } else {
       navigate('/login');
     }
+
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe().catch(error => {
+          console.error('Error unsubscribing from live query:', error);
+        });
+      }
+    };
   }, [user, filter]); // Add filter to the dependency array
 
   const fetchPosts = async () => {
@@ -35,46 +71,53 @@ const PostList = () => {
 
     try {
       const results = await query.find();
-      const postsWithUsernames = await Promise.all(results.map(async (post) => {
+      const postsWithUsernames = await Promise.all(results.map(async post => {
         const userId = post.get('userId');
-        const userQuery = new Parse.Query(Parse.User);
-        const user = await userQuery.get(userId);
-        post.set('username', user.get('username'));
+        if (userId) {
+          try {
+            const userQuery = new Parse.Query(Parse.User);
+            const user = await userQuery.get(userId.id);
+            post.set('username', user.get('username'));
+          } catch (userError) {
+            console.warn('User not found for post:', post.id, userError);
+            post.set('username', 'Unknown');
+          }
+        } else {
+          post.set('username', 'Unknown');
+        }
         return post;
       }));
-
-      // Filter posts based on filter value
-      let filteredPosts = [];
-      if (filter === 'my') {
-        filteredPosts = postsWithUsernames.filter((post) => post.get('userId') === user.objectId);
-      } else if (filter === 'others') {
-        filteredPosts = postsWithUsernames.filter((post) => post.get('userId') !== user.objectId);
-      } else {
-        filteredPosts = postsWithUsernames;
-      }
-
-      setPosts(filteredPosts);
+      setPosts(postsWithUsernames);
     } catch (error) {
-      console.error('Error while fetching Posts: ', error);
-      // Handle network issues gracefully
+      console.error('Error while fetching Posts:', error);
       alert('Error while fetching Posts. Please try again later.');
     }
   };
 
-  const deletePost = async (postId) => {
+  const deletePost = async postId => {
     const Post = Parse.Object.extend('Post');
     const query = new Parse.Query(Post);
 
     try {
       const post = await query.get(postId);
       await post.destroy();
-      fetchPosts();
+      fetchPosts(); // Fetch posts after deletion to ensure state is updated
     } catch (error) {
-      console.error('Error while deleting Post: ', error);
-      // Handle delete errors gracefully
+      console.error('Error while deleting Post:', error);
       alert('Error while deleting Post. Please try again later.');
     }
   };
+
+  const filteredPosts = posts.filter(post => {
+    const postUserId = post.get('userId');
+    if (filter === 'my') {
+      return user && postUserId && postUserId.id === user.id;
+    }
+    if (filter === 'others') {
+      return user && postUserId && postUserId.id !== user.id;
+    }
+    return true;
+  });
 
   return (
     <div className="post-list-container">
@@ -107,7 +150,7 @@ const PostList = () => {
       </div>
 
       <div className="posts">
-        {posts.map((post) => (
+        {filteredPosts.map(post => (
           <div key={post.id} className="post">
             <h3>{post.get('title')}</h3>
             <p>{post.get('content')}</p>
@@ -115,7 +158,7 @@ const PostList = () => {
               <p className="meta-item">Created by: {post.get('username')}</p>
               <p className="meta-item">Created at: {new Date(post.createdAt).toLocaleString()}</p>
             </div>
-            {user && user.objectId === post.get('userId') && (
+            {user && user.id === post.get('userId').id && (
               <>
                 <button className="edit-button" onClick={() => { setEditingPost(post); setUpdateModalOpen(true); }}>Edit</button>
                 <button className="delete-button" onClick={() => deletePost(post.id)}>Delete</button>
